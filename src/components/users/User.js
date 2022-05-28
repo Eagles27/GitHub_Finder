@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useContext } from "react";
 import Spinner from "../layout/Spinner";
 import Repos from "../repos/Repos";
-import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import GithubContext from "../../context/github/githubContext";
 import { BsCheckLg } from "react-icons/bs";
 import { AiFillStop } from "react-icons/ai";
 
-const User = ({ repos, getUserRepos }) => {
+const User = () => {
   const githubContext = useContext(GithubContext);
+  const { getUser, user, loading, getUserRepos, repos } = githubContext;
 
   const { login } = useParams(); ///To pass props from URL since RRD V6
 
@@ -17,8 +17,6 @@ const User = ({ repos, getUserRepos }) => {
     getUserRepos(login);
     // eslint-disable-next-line
   }, []);
-
-  const { getUser, user, loading } = githubContext;
 
   const {
     name,
@@ -100,11 +98,6 @@ const User = ({ repos, getUserRepos }) => {
       <Repos repos={repos} />
     </Fragment>
   );
-};
-
-User.propTypes = {
-  repos: PropTypes.array.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 };
 
 export default User;
